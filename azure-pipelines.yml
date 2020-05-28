@@ -28,7 +28,7 @@ steps:
   inputs:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
     includeRootFolder: false
-    archiveFile: '$(Build.ArtifactStagingDirectory)/python.zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/python2.zip'
     
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
