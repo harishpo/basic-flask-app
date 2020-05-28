@@ -1,19 +1,29 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# Python to Linux Web App on Azure
+# Build your Python project and deploy it to Azure as a Linux Web App.
+# Change python version to one thats appropriate for your application.
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  #azureServiceConnectionId: 'e642a1ce-4e8b-4774-aaee-e9bb145e867d'
+  
+  # Web app name
+  #webAppName: 'testpyflaskapp'
 
- # Python version: 3.7
-  pythonVersion: '3.7'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Environment name
+  #environmentName: 'testpyflaskapp'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
+  
+  # Python version: 3.7
+  pythonVersion: '3.7'
 
 stages:
 - stage: Build
@@ -21,7 +31,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-      vmImage: $(vmImage)
+      vmImage: $(vmImageName)
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -49,3 +59,4 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
+
