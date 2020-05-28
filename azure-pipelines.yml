@@ -21,7 +21,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-      vmImage: $(vmImageName)
+      vmImage: $(vmImage)
     steps:
     - task: UsePythonVersion@0
       inputs:
