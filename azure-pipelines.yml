@@ -24,18 +24,16 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 - task: ArchiveFiles@2
+  displayName: 'Archive $(System.DefaultWorkingDirectory)'
   inputs:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
     includeRootFolder: false
-    archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/python.zip'
-    replaceExistingArchive: true
+    
 - task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
-    Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
+
 - task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+  displayName: 'Publish Artifact: drop'
